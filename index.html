@@ -2176,6 +2176,28 @@
   }
   .contact-submit:hover::before{ transform:scaleX(1); }
 
+  .contact-submit[disabled]{
+    opacity:.55;
+    cursor:not-allowed;
+  }
+  .contact-submit[disabled]:hover{
+    color:#e8e2d0;
+    border-color:rgba(255,255,255,.35);
+  }
+  .contact-submit[disabled]:hover::before{ transform:scaleX(0); }
+
+  .contact-status{
+    margin:16px 0 0;
+    min-height:1.2em;
+    font-family:'Jost',sans-serif;
+    font-size:12px;
+    letter-spacing:.05em;
+    text-align:center;
+    color:#a8a293;
+  }
+  .contact-status.is-success{ color:#cba24c; }
+  .contact-status.is-error{ color:#d99a86; }
+
   @media (max-width:640px){
     .contact-section{ padding:70px 6% 90px; }
     .contact-row{ grid-template-columns:1fr; row-gap:34px; }
@@ -2243,15 +2265,20 @@
     <h2 class="contact-title">Contact Me</h2>
     <p class="contact-sub">Feel free to reach out</p>
 
-    <form class="contact-form" action="#" method="post">
+    <form class="contact-form" id="contactForm" action="https://formsubmit.co/josepracelis.work@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New message from Ara Coeli site">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
       <div class="contact-row">
         <div class="contact-field">
           <label class="contact-label" for="contactName">Your Name</label>
-          <input class="contact-input" type="text" id="contactName" name="name" autocomplete="name">
+          <input class="contact-input" type="text" id="contactName" name="name" autocomplete="name" required>
         </div>
         <div class="contact-field">
           <label class="contact-label" for="contactEmail">Email Address</label>
-          <input class="contact-input" type="email" id="contactEmail" name="email" autocomplete="email">
+          <input class="contact-input" type="email" id="contactEmail" name="email" autocomplete="email" required>
         </div>
       </div>
 
@@ -2262,11 +2289,12 @@
 
       <div class="contact-field full">
         <label class="contact-label" for="contactMessage">Your Message</label>
-        <textarea class="contact-textarea" id="contactMessage" name="message" rows="4"></textarea>
+        <textarea class="contact-textarea" id="contactMessage" name="message" rows="4" required></textarea>
       </div>
 
       <div class="contact-submit-wrap">
         <button class="contact-submit" type="submit"><span>Send Message</span></button>
+        <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
       </div>
     </form>
 
@@ -2529,6 +2557,65 @@
       section.addEventListener('focusout', start);
 
       start();
+    })();
+  </script>
+
+  <!-- =========================================================
+        CONTACT FORM — AJAX submission via FormSubmit
+  ========================================================== -->
+  <script>
+    (function(){
+      var form = document.getElementById('contactForm');
+      var status = document.getElementById('contactStatus');
+      if(!form || !status) return;
+
+      var submitBtn = form.querySelector('.contact-submit');
+      var submitLabel = submitBtn ? submitBtn.querySelector('span') : null;
+
+      function setStatus(message, cls){
+        status.textContent = message;
+        status.className = 'contact-status' + (cls ? ' ' + cls : '');
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        // honeypot — if this hidden field has a value, silently drop the submission
+        var honey = form.querySelector('[name="_honey"]');
+        if(honey && honey.value){ return; }
+
+        var formData = new FormData(form);
+        var payload = {};
+        formData.forEach(function(value, key){ payload[key] = value; });
+
+        if(submitBtn){ submitBtn.disabled = true; }
+        if(submitLabel){ submitLabel.textContent = 'Sending…'; }
+        setStatus('Sending your message…');
+
+        fetch(form.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+        .then(function(res){
+          if(!res.ok) throw new Error('Request failed');
+          return res.json();
+        })
+        .then(function(){
+          setStatus('Thanks — your message is on its way. I\'ll get back to you soon.', 'is-success');
+          form.reset();
+        })
+        .catch(function(){
+          setStatus('Something went wrong — please email josepracelis.work@gmail.com directly.', 'is-error');
+        })
+        .finally(function(){
+          if(submitBtn){ submitBtn.disabled = false; }
+          if(submitLabel){ submitLabel.textContent = 'Send Message'; }
+        });
+      });
     })();
   </script>
 
