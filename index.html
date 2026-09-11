@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="en">
   <head>
   <meta charset="UTF-8">
@@ -1151,8 +1151,158 @@
       .wisdom-progress{ gap:8px; margin-top:34px; }
     }
   </style>
+
+  <!-- =========================================================
+        LOADING SCREEN — "Iosif" wordmark, then flies into header
+  ========================================================== -->
+  <style>
+    html.is-loading, html.is-loading body{
+      overflow:hidden;
+      height:100%;
+    }
+
+    #loadScreen{
+      position:fixed;
+      inset:0;
+      z-index:10000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:22px;
+      background:#0C0B09;
+      transition:background-color .7s ease .15s;
+    }
+    #loadScreen.is-done{
+      background-color:transparent;
+      pointer-events:none;
+    }
+
+    .loader-logo{
+      margin:0;
+      font-family:'Cinzel',serif;
+      font-weight:500;
+      font-size:clamp(42px,9vw,100px);
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#e8e2d0;
+      line-height:1;
+      white-space:nowrap;
+      transform-origin:50% 50%;
+      transition:transform 1.05s cubic-bezier(.65,0,.35,1) .05s, color .5s ease;
+      will-change:transform;
+    }
+    #loadScreen.is-done .loader-logo{
+      color:#e8e2d0;
+    }
+
+    .loader-bar{
+      position:relative;
+      width:120px;
+      height:1px;
+      background:rgba(255,255,255,.14);
+      overflow:hidden;
+      transition:opacity .35s ease;
+    }
+    .loader-bar::after{
+      content:"";
+      position:absolute;
+      left:-40%;
+      top:0;
+      bottom:0;
+      width:40%;
+      background:var(--accent);
+      animation:loaderSlide 1.1s ease-in-out infinite;
+    }
+    #loadScreen.is-done .loader-bar{
+      opacity:0;
+    }
+
+    @keyframes loaderSlide{
+      0%{ left:-40%; }
+      100%{ left:100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .loader-logo{ transition:transform .01s linear, color .01s linear; }
+      #loadScreen{ transition:none; }
+      .loader-bar::after{ animation:none; left:0; width:100%; }
+    }
+
+    @media (max-width:760px){
+      .loader-logo{ font-size:clamp(30px,11vw,54px); }
+    }
+  </style>
+
+  <!-- =========================================================
+        CUSTOM CURSOR — quill nib + flowing ink trail (canvas)
+  ========================================================== -->
+  <style>
+    @media (hover:hover) and (pointer:fine){
+      html.custom-cursor, html.custom-cursor body, html.custom-cursor a,
+      html.custom-cursor button, html.custom-cursor input, html.custom-cursor textarea{
+        cursor:none;
+      }
+    }
+
+    .ink-canvas{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:9998;
+      mix-blend-mode:difference;
+      opacity:0;
+      transition:opacity .4s ease;
+    }
+    html.cursor-active .ink-canvas{
+      opacity:1;
+    }
+
+    .cursor-pen{
+      position:fixed;
+      top:0;
+      left:0;
+      width:34px;
+      height:20px;
+      margin-left:-17px;
+      margin-top:-10px;
+      color:#ffffff;
+      mix-blend-mode:difference;
+      pointer-events:none;
+      z-index:9999;
+      opacity:0;
+      transition:opacity .35s ease;
+      will-change:transform;
+    }
+    .cursor-pen svg{
+      width:100%;
+      height:100%;
+      display:block;
+      overflow:visible;
+    }
+
+    html.cursor-active .cursor-pen{
+      opacity:1;
+    }
+
+    @media (hover:none), (pointer:coarse){
+      .cursor-pen, .ink-canvas{ display:none !important; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .cursor-pen, .ink-canvas{ display:none !important; }
+    }
+  </style>
+
   </head>
   <body>
+  <script>document.documentElement.classList.add('is-loading','custom-cursor');</script>
+
+  <div id="loadScreen">
+    <h1 class="loader-logo" id="loaderLogo">Iosif</h1>
+    <div class="loader-bar"></div>
+  </div>
 
   <!-- =========================================================
         SITE HEADER
@@ -1171,7 +1321,7 @@
 
       <div class="site-header-actions">
         <!-- Replace the address below with your real inbox -->
-        <a class="site-mail" href="mailto:hello@aracoeli.com" aria-label="Email Iosif">
+        <a class="site-mail" href="mailto:josepracelis.work@gmail.com" aria-label="Email Iosif">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
             <rect x="2.5" y="5" width="19" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M3.5 6.5 12 13l8.5-6.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1398,7 +1548,7 @@
 
       <!-- Kinetix -->
       <article class="work-card reveal">
-        <a class="work-thumb" href="#" target="_blank" rel="noopener" aria-label="Kinetix live demo">
+        <a class="work-thumb" href="https://josep.myfreelanceportfolio.me/mainpage-showcase-page" target="_blank" rel="noopener" aria-label="Kinetix live demo">
           <img src="https://assets.cdn.filesafe.space/qP7UG9fMzzIXNIWd6w0q/media/6a7dbd62255b571c8ee68fd3.png" alt="Kinetix Preview" class="work-image" />
         </a>
         <h3 class="work-name">Kinetix</h3>
@@ -1407,20 +1557,16 @@
           <span>GoHighLevel</span><span>Custom CSS</span><span>Javascript</span>
         </div>
         <div class="work-links">
-          <a href="#" target="_blank" rel="noopener">
+          <a href="https://josep.myfreelanceportfolio.me/mainpage-showcase-page" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 5h5v5M19 5 10 14M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Live Demo
-          </a>
-          <a href="#" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.79-.25.79-.55 0-.27-.01-1.17-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a10.99 10.99 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
-            GitHub
           </a>
         </div>
       </article>
 
       <!-- PH Hike. -->
       <article class="work-card tone-blue reveal">
-        <a class="work-thumb" href="#" target="_blank" rel="noopener" aria-label="PH Hike live demo">
+        <a class="work-thumb" href="https://josep.myfreelanceportfolio.me/hiking-booking-funnel-5856" target="_blank" rel="noopener" aria-label="PH Hike live demo">
           <img src="https://assets.cdn.filesafe.space/qP7UG9fMzzIXNIWd6w0q/media/6a85dd7e5113a1715fe8839d.png" alt="PH Hike Preview" class="work-image" />
         </a>
         <h3 class="work-name">PH Hike.</h3>
@@ -1429,7 +1575,7 @@
           <span>GoHighLevel</span><span>Custom CSS</span><span>Javascript</span>
         </div>
         <div class="work-links">
-          <a href="#" target="_blank" rel="noopener">
+          <a href="https://josep.myfreelanceportfolio.me/hiking-booking-funnel-5856" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 5h5v5M19 5 10 14M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Live Demo
           </a>
@@ -1439,9 +1585,9 @@
     </div>
 
     <div class="works-more reveal">
-      <a class="more-btn" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.79-.25.79-.55 0-.27-.01-1.17-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a10.99 10.99 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
-        <span>View More on GitHub</span>
+      <a class="more-btn" href="https://josep.myfreelanceportfolio.me/my-automations-page" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-workflow"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+        <span>View my Automations</span>
         <svg class="arrow-ic" viewBox="0 0 20 12" fill="none"><path d="M1 6h17M12 1l6 5-6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -1791,7 +1937,520 @@
 </div>
 </section>
 
+<style>
+  /* =========================================================
+     CONTACT — closing section, dark, scattered dots, form
+  ========================================================== */
+  .contact-section{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    background:#0C0B09;
+    color:#d9d5c9;
+    padding:clamp(90px,13vw,150px) 24px clamp(110px,14vw,160px);
+    box-sizing:border-box;
+  }
 
+  /* ---------- scattered decorative dots ---------- */
+  .contact-dots{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+  .contact-dots .dot{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:#6f6c66;
+    opacity:0;
+    animation-name:dotRise;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    will-change:transform, opacity;
+  }
+  .contact-dots .dot.gold{
+    background:#cba24c;
+    opacity:.75;
+  }
+
+  @keyframes dotRise{
+    0%{   transform:translateY(0) scale(.85);              opacity:0; }
+    8%{   opacity:var(--dot-op,.6); }
+    88%{  opacity:var(--dot-op,.6); }
+    100%{ transform:translateY(var(--dot-rise,-320px)) scale(1); opacity:0; }
+  }
+
+  .contact-dots .dot.d1{ bottom:-6%; left:7%; width:4px; height:4px; --dot-rise:-475px; --dot-op:0.76; animation-duration:6.9s; animation-delay:-4.6s; }
+  .contact-dots .dot.d2{ bottom:8%; left:47%; width:3px; height:3px; --dot-rise:-434px; --dot-op:0.68; animation-duration:12.8s; animation-delay:-7.6s; }
+  .contact-dots .dot.d3{ bottom:4%; left:73%; width:3px; height:3px; --dot-rise:-307px; --dot-op:0.72; animation-duration:15.0s; animation-delay:-7.1s; }
+  .contact-dots .dot.d4{ bottom:-9%; left:76%; width:3px; height:3px; --dot-rise:-488px; --dot-op:0.72; animation-duration:9.1s; animation-delay:-3.5s; }
+  .contact-dots .dot.d5{ bottom:-10%; left:65%; width:4px; height:4px; --dot-rise:-441px; --dot-op:0.47; animation-duration:8.0s; animation-delay:-0.9s; }
+  .contact-dots .dot.d6{ bottom:14%; left:5%; width:3px; height:3px; --dot-rise:-326px; --dot-op:0.82; animation-duration:13.1s; animation-delay:-5.2s; }
+  .contact-dots .dot.d7{ bottom:5%; left:75%; width:3px; height:3px; --dot-rise:-345px; --dot-op:0.8; animation-duration:10.5s; animation-delay:-5.8s; }
+  .contact-dots .dot.d8{ bottom:3%; left:89%; width:5px; height:5px; --dot-rise:-402px; --dot-op:0.72; animation-duration:12.9s; animation-delay:-12.7s; }
+  .contact-dots .dot.d9{ bottom:2%; left:88%; width:3px; height:3px; --dot-rise:-337px; --dot-op:0.71; animation-duration:7.2s; animation-delay:-1.1s; }
+  .contact-dots .dot.d10{ bottom:-10%; left:36%; width:4px; height:4px; --dot-rise:-353px; --dot-op:0.62; animation-duration:8.9s; animation-delay:-0.0s; }
+  .contact-dots .dot.d11{ bottom:1%; left:72%; width:5px; height:5px; --dot-rise:-423px; --dot-op:0.66; animation-duration:15.1s; animation-delay:-10.4s; }
+  .contact-dots .dot.d12{ bottom:9%; left:16%; width:3px; height:3px; --dot-rise:-493px; --dot-op:0.8; animation-duration:14.6s; animation-delay:-11.4s; }
+  .contact-dots .dot.d13{ bottom:15%; left:82%; width:5px; height:5px; --dot-rise:-460px; --dot-op:0.64; animation-duration:10.1s; animation-delay:-4.0s; }
+  .contact-dots .dot.d14{ bottom:2%; left:71%; width:3px; height:3px; --dot-rise:-357px; --dot-op:0.51; animation-duration:7.1s; animation-delay:-1.5s; }
+  .contact-dots .dot.d15{ bottom:0%; left:6%; width:5px; height:5px; --dot-rise:-286px; --dot-op:0.66; animation-duration:7.4s; animation-delay:-4.2s; }
+  .contact-dots .dot.d16{ bottom:1%; left:69%; width:5px; height:5px; --dot-rise:-273px; --dot-op:0.6; animation-duration:7.1s; animation-delay:-1.5s; }
+  .contact-dots .dot.d17{ bottom:10%; left:10%; width:3px; height:3px; --dot-rise:-437px; --dot-op:0.5; animation-duration:11.9s; animation-delay:-5.6s; }
+  .contact-dots .dot.d18{ bottom:5%; left:13%; width:4px; height:4px; --dot-rise:-505px; --dot-op:0.49; animation-duration:10.9s; animation-delay:-0.9s; }
+  .contact-dots .dot.d19{ bottom:0%; left:18%; width:3px; height:3px; --dot-rise:-505px; --dot-op:0.46; animation-duration:14.0s; animation-delay:-2.3s; }
+  .contact-dots .dot.d20{ bottom:6%; left:97%; width:3px; height:3px; --dot-rise:-335px; --dot-op:0.75; animation-duration:12.7s; animation-delay:-11.6s; }
+  .contact-dots .dot.d21{ bottom:-1%; left:54%; width:3px; height:3px; --dot-rise:-393px; --dot-op:0.59; animation-duration:11.2s; animation-delay:-10.2s; }
+  .contact-dots .dot.d22{ bottom:-3%; left:38%; width:5px; height:5px; --dot-rise:-517px; --dot-op:0.77; animation-duration:9.5s; animation-delay:-2.1s; }
+  .contact-dots .dot.d23{ bottom:14%; left:31%; width:3px; height:3px; --dot-rise:-382px; --dot-op:0.54; animation-duration:13.9s; animation-delay:-10.3s; }
+  .contact-dots .dot.d24{ bottom:6%; left:19%; width:4px; height:4px; --dot-rise:-442px; --dot-op:0.77; animation-duration:13.1s; animation-delay:-13.0s; }
+  .contact-dots .dot.d25{ bottom:5%; left:56%; width:3px; height:3px; --dot-rise:-359px; --dot-op:0.63; animation-duration:12.7s; animation-delay:-12.1s; }
+  .contact-dots .dot.d26{ bottom:13%; left:29%; width:3px; height:3px; --dot-rise:-446px; --dot-op:0.64; animation-duration:7.2s; animation-delay:-0.7s; }
+  .contact-dots .dot.d27{ bottom:0%; left:37%; width:3px; height:3px; --dot-rise:-507px; --dot-op:0.79; animation-duration:12.1s; animation-delay:-10.9s; }
+  .contact-dots .dot.d28{ bottom:5%; left:51%; width:3px; height:3px; --dot-rise:-303px; --dot-op:0.61; animation-duration:14.0s; animation-delay:-1.7s; }
+  .contact-dots .dot.d29{ bottom:12%; left:35%; width:3px; height:3px; --dot-rise:-504px; --dot-op:0.7; animation-duration:14.5s; animation-delay:-6.3s; }
+  .contact-dots .dot.d30{ bottom:-8%; left:84%; width:4px; height:4px; --dot-rise:-497px; --dot-op:0.74; animation-duration:10.1s; animation-delay:-9.6s; }
+  .contact-dots .dot.d31{ bottom:-5%; left:42%; width:3px; height:3px; --dot-rise:-274px; --dot-op:0.77; animation-duration:7.9s; animation-delay:-7.1s; }
+  .contact-dots .dot.d32{ bottom:-6%; left:8%; width:5px; height:5px; --dot-rise:-502px; --dot-op:0.67; animation-duration:12.4s; animation-delay:-4.3s; }
+  .contact-dots .dot.d33{ bottom:-6%; left:9%; width:3px; height:3px; --dot-rise:-267px; --dot-op:0.49; animation-duration:13.7s; animation-delay:-10.0s; }
+  .contact-dots .dot.d34{ bottom:13%; left:96%; width:3px; height:3px; --dot-rise:-482px; --dot-op:0.8; animation-duration:15.4s; animation-delay:-3.0s; }
+  .contact-dots .dot.d35{ bottom:-10%; left:55%; width:3px; height:3px; --dot-rise:-368px; --dot-op:0.68; animation-duration:9.1s; animation-delay:-2.2s; }
+  .contact-dots .dot.d36{ bottom:-2%; left:28%; width:5px; height:5px; --dot-rise:-474px; --dot-op:0.75; animation-duration:14.0s; animation-delay:-0.9s; }
+  .contact-dots .dot.d37{ bottom:4%; left:94%; width:5px; height:5px; --dot-rise:-475px; --dot-op:0.5; animation-duration:13.9s; animation-delay:-12.2s; }
+  .contact-dots .dot.d38{ bottom:-6%; left:95%; width:5px; height:5px; --dot-rise:-269px; --dot-op:0.69; animation-duration:14.4s; animation-delay:-11.2s; }
+  .contact-dots .dot.d39{ bottom:14%; left:12%; width:3px; height:3px; --dot-rise:-348px; --dot-op:0.5; animation-duration:7.8s; animation-delay:-4.8s; }
+  .contact-dots .dot.d40{ bottom:-9%; left:20%; width:3px; height:3px; --dot-rise:-507px; --dot-op:0.67; animation-duration:13.6s; animation-delay:-1.4s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .contact-dots .dot{ animation:none; opacity:.5; }
+  }
+
+  .contact-inner{
+    position:relative;
+    z-index:1;
+    max-width:720px;
+    margin:0 auto;
+    text-align:center;
+  }
+
+  .contact-icon{
+    width:44px;
+    height:44px;
+    margin:0 auto clamp(18px,2.4vw,26px);
+    color:#c6c1b3;
+    opacity:.9;
+  }
+  .contact-icon svg{ width:100%; height:100%; display:block; }
+
+  .contact-title{
+    margin:0;
+    font-family:'Cinzel',serif;
+    font-weight:500;
+    font-size:clamp(38px,6vw,64px);
+    letter-spacing:.06em;
+    line-height:1.1;
+    color:#e8e2d0;
+    text-align:center;
+  }
+
+  .contact-sub{
+    margin:clamp(10px,1.6vw,16px) 0 0;
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    font-size:clamp(11px,1.2vw,13px);
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:#a8a293;
+    text-align:center;
+  }
+
+  .contact-form{
+    margin:clamp(56px,7vw,80px) auto 0;
+    max-width:640px;
+    text-align:left;
+  }
+
+  .contact-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:60px;
+    row-gap:44px;
+  }
+
+  .contact-field{
+    display:flex;
+    flex-direction:column;
+    margin-top:44px;
+  }
+  .contact-row .contact-field{ margin-top:0; }
+  .contact-field.full{ width:100%; }
+
+  .contact-label{
+    display:block;
+    margin-bottom:14px;
+    font-family:'Jost',sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    text-align:left;
+    color:#847f70;
+  }
+
+  .contact-input,
+  .contact-textarea{
+    width:100%;
+    display:block;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid rgba(255,255,255,.18);
+    border-radius:0;
+    padding:0 0 12px;
+    margin:0;
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    font-size:14px;
+    line-height:1.5;
+    letter-spacing:.01em;
+    color:#e8e2d0;
+    text-align:left;
+    outline:none;
+    transition:border-color .3s ease;
+  }
+  .contact-input::placeholder,
+  .contact-textarea::placeholder{
+    color:rgba(217,213,201,.28);
+    font-weight:300;
+  }
+  .contact-input:focus,
+  .contact-textarea:focus{
+    border-bottom-color:var(--accent);
+  }
+  .contact-textarea{
+    resize:vertical;
+    min-height:104px;
+    line-height:1.7;
+  }
+
+  .contact-submit-wrap{
+    margin-top:clamp(48px,6vw,64px);
+    text-align:center;
+  }
+  .contact-submit{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    min-width:200px;
+    padding:16px 34px;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:0;
+    cursor:pointer;
+    font-family:'Jost',sans-serif;
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    text-align:center;
+    color:#e8e2d0;
+    transition:color .4s ease, border-color .4s ease;
+  }
+  .contact-submit::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:var(--accent);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .45s cubic-bezier(.19,1,.22,1);
+    z-index:0;
+  }
+  .contact-submit span{ position:relative; z-index:1; }
+  .contact-submit:hover{
+    color:#0C0B09;
+    border-color:var(--accent);
+  }
+  .contact-submit:hover::before{ transform:scaleX(1); }
+
+  @media (max-width:640px){
+    .contact-section{ padding:70px 6% 90px; }
+    .contact-row{ grid-template-columns:1fr; row-gap:34px; }
+    .contact-field{ margin-top:34px; }
+    .contact-row .contact-field:first-child{ margin-top:0; }
+    .contact-form{ margin-top:44px; }
+    .contact-submit{ width:100%; padding:15px 22px; }
+  }
+</style>
+
+<section class="contact-section" id="contact">
+
+  <div class="contact-dots" aria-hidden="true">
+    <span class="dot d1"></span>
+    <span class="dot d2"></span>
+    <span class="dot d3 gold"></span>
+    <span class="dot d4"></span>
+    <span class="dot d5"></span>
+    <span class="dot d6 gold"></span>
+    <span class="dot d7"></span>
+    <span class="dot d8"></span>
+    <span class="dot d9 gold"></span>
+    <span class="dot d10"></span>
+    <span class="dot d11"></span>
+    <span class="dot d12 gold"></span>
+    <span class="dot d13"></span>
+    <span class="dot d14"></span>
+    <span class="dot d15 gold"></span>
+    <span class="dot d16"></span>
+    <span class="dot d17"></span>
+    <span class="dot d18 gold"></span>
+    <span class="dot d19"></span>
+    <span class="dot d20"></span>
+    <span class="dot d21 gold"></span>
+    <span class="dot d22"></span>
+    <span class="dot d23"></span>
+    <span class="dot d24 gold"></span>
+    <span class="dot d25"></span>
+    <span class="dot d26"></span>
+    <span class="dot d27 gold"></span>
+    <span class="dot d28"></span>
+    <span class="dot d29"></span>
+    <span class="dot d30 gold"></span>
+    <span class="dot d31"></span>
+    <span class="dot d32"></span>
+    <span class="dot d33 gold"></span>
+    <span class="dot d34"></span>
+    <span class="dot d35"></span>
+    <span class="dot d36 gold"></span>
+    <span class="dot d37"></span>
+    <span class="dot d38"></span>
+    <span class="dot d39 gold"></span>
+    <span class="dot d40"></span>
+  </div>
+
+  <div class="contact-inner reveal">
+
+    <div class="contact-icon">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M40 8c-11 0-24 6-27 19-1.2 5 .6 9 .6 9s4-1.8 9-3C35.5 29.5 40 19 40 8Z"/>
+        <path d="M13.6 33 6 40.5"/>
+      </svg>
+    </div>
+
+    <h2 class="contact-title">Contact Me</h2>
+    <p class="contact-sub">Feel free to reach out</p>
+
+    <form class="contact-form" action="#" method="post">
+      <div class="contact-row">
+        <div class="contact-field">
+          <label class="contact-label" for="contactName">Your Name</label>
+          <input class="contact-input" type="text" id="contactName" name="name" autocomplete="name">
+        </div>
+        <div class="contact-field">
+          <label class="contact-label" for="contactEmail">Email Address</label>
+          <input class="contact-input" type="email" id="contactEmail" name="email" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="contact-field full">
+        <label class="contact-label" for="contactSubject">Subject</label>
+        <input class="contact-input" type="text" id="contactSubject" name="subject">
+      </div>
+
+      <div class="contact-field full">
+        <label class="contact-label" for="contactMessage">Your Message</label>
+        <textarea class="contact-textarea" id="contactMessage" name="message" rows="4"></textarea>
+      </div>
+
+      <div class="contact-submit-wrap">
+        <button class="contact-submit" type="submit"><span>Send Message</span></button>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+  <!-- =========================================================
+        SITE FOOTER
+  ========================================================== -->
+  <style>
+    .site-footer{
+      position:relative;
+      background:#0a0906;
+      color:#a8a293;
+      padding:64px 24px 30px;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+    .footer-inner{
+      max-width:1180px;
+      margin:0 auto;
+    }
+    .footer-top{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:44px 60px;
+      padding-bottom:42px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .footer-brand{
+      max-width:320px;
+      flex:1 1 260px;
+    }
+    .footer-logo{
+      display:inline-block;
+      font-family:'Cinzel',serif;
+      font-weight:500;
+      font-size:20px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#e8e2d0;
+      text-decoration:none;
+      line-height:1;
+    }
+    .footer-tagline{
+      margin:16px 0 0;
+      font-family:'Jost',sans-serif;
+      font-weight:300;
+      font-size:13px;
+      line-height:1.7;
+      letter-spacing:.01em;
+      color:#847f70;
+      text-align:left;
+    }
+
+    .footer-col{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:12px;
+      flex:0 0 auto;
+    }
+    .footer-col-title{
+      margin:0 0 4px;
+      font-family:'Jost',sans-serif;
+      font-weight:500;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:#e8e2d0;
+    }
+    .footer-col a{
+      font-family:'Jost',sans-serif;
+      font-weight:300;
+      font-size:13px;
+      letter-spacing:.02em;
+      color:#a8a293;
+      text-decoration:none;
+      transition:color .25s ease;
+    }
+    .footer-col a:hover{ color:var(--accent); }
+
+    .footer-mail{
+      display:inline-flex !important;
+      align-items:center;
+      gap:8px;
+      color:#c6c1b3 !important;
+    }
+    .footer-mail svg{ width:14px; height:14px; flex:none; }
+
+    .footer-top-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:2px;
+      font-family:'Jost',sans-serif;
+      font-weight:500;
+      font-size:11px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#c6c1b3;
+      text-decoration:none;
+      transition:color .25s ease, transform .3s ease;
+    }
+    .footer-top-link svg{ width:12px; height:12px; flex:none; transition:transform .3s ease; }
+    .footer-top-link:hover{ color:var(--accent); }
+    .footer-top-link:hover svg{ transform:translateY(-3px); }
+
+    .footer-bottom{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px 24px;
+      padding-top:24px;
+    }
+    .footer-copy{
+      margin:0;
+      font-family:'Jost',sans-serif;
+      font-weight:300;
+      font-size:11px;
+      letter-spacing:.06em;
+      color:#6f6c66;
+      text-align:left;
+    }
+    .footer-quote{
+      margin:0;
+      max-width:440px;
+      font-family:'EB Garamond',serif;
+      font-style:italic;
+      font-size:12.5px;
+      line-height:1.6;
+      color:#847f70;
+      text-align:right;
+    }
+
+    @media (max-width:760px){
+      .site-footer{ padding:52px 6% 26px; }
+      .footer-top{ flex-direction:column; gap:36px; padding-bottom:32px; }
+      .footer-bottom{ flex-direction:column; align-items:flex-start; padding-top:22px; }
+      .footer-quote{ text-align:left; max-width:none; }
+    }
+  </style>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <div class="footer-top reveal">
+        <div class="footer-brand">
+          <a class="footer-logo" href="#top">Iosif</a>
+          <p class="footer-tagline">Ara Coeli — premium GoHighLevel funnels, automations, and conversion architecture for growing brands.</p>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-col-title">Navigate</h3>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#wisdom">Wisdom</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-col-title">Get in Touch</h3>
+          <a class="footer-mail" href="mailto:josepracelis.work@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5" width="19" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 6.5 12 13l8.5-6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            josepracelis.work@gmail.com
+          </a>
+          <a class="footer-top-link" href="#top">
+            <svg viewBox="0 0 20 12" fill="none"><path d="M19 11 10 2 1 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back to Top
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom reveal">
+        <p class="footer-copy">© 2026 Iosif. All rights reserved.</p>
+        <p class="footer-quote">"Waste no more time arguing what a good man should be. Be one." — Marcus Aurelius</p>
+      </div>
+
+    </div>
+  </footer>
 
   <script>
 
@@ -1919,6 +2578,232 @@
           });
         });
       }
+    })();
+  </script>
+
+  <!-- =========================================================
+        LOADING SCREEN — "Iosif" flies from center into the header
+  ========================================================== -->
+  <script>
+    (function(){
+      var screenEl  = document.getElementById('loadScreen');
+      var loaderLogo = document.getElementById('loaderLogo');
+      var targetLogo = document.querySelector('.site-header .site-logo');
+      if(!screenEl || !loaderLogo || !targetLogo){
+        document.documentElement.classList.remove('is-loading');
+        if(screenEl) screenEl.remove();
+        return;
+      }
+
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var MIN_DISPLAY = reduced ? 200 : 1100;
+      var started = Date.now();
+
+      function playIntro(){
+        var fromRect = loaderLogo.getBoundingClientRect();
+        var toRect   = targetLogo.getBoundingClientRect();
+
+        var fromSize = parseFloat(getComputedStyle(loaderLogo).fontSize);
+        var toSize   = parseFloat(getComputedStyle(targetLogo).fontSize);
+        var scale    = toSize / fromSize;
+
+        var fromCenterX = fromRect.left + fromRect.width / 2;
+        var fromCenterY = fromRect.top + fromRect.height / 2;
+        var toCenterX   = toRect.left + toRect.width / 2;
+        var toCenterY   = toRect.top + toRect.height / 2;
+
+        var dx = toCenterX - fromCenterX;
+        var dy = toCenterY - fromCenterY;
+
+        loaderLogo.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
+        screenEl.classList.add('is-done');
+
+        document.documentElement.classList.remove('is-loading');
+
+        window.setTimeout(function(){
+          screenEl.remove();
+        }, reduced ? 250 : 1250);
+      }
+
+      function ready(){
+        var elapsed = Date.now() - started;
+        var wait = Math.max(0, MIN_DISPLAY - elapsed);
+        window.setTimeout(playIntro, wait);
+      }
+
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(ready).catch(ready);
+      } else {
+        ready();
+      }
+
+      // safety net in case fonts.ready never resolves
+      window.setTimeout(ready, 3200);
+    })();
+  </script>
+
+  <!-- =========================================================
+        CUSTOM CURSOR — quill nib + flowing ink trail (canvas)
+  ========================================================== -->
+  <script>
+    (function(){
+      var supportsFinePointer = window.matchMedia &&
+        window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+      var reduced = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Skip entirely on touch devices and for users who prefer reduced motion —
+      // keeps every section's performance untouched on mobile.
+      if(!supportsFinePointer || reduced) return;
+
+      /* ---------- canvas ink trail ---------- */
+      var canvas = document.createElement('canvas');
+      canvas.className = 'ink-canvas';
+      document.body.appendChild(canvas);
+      var ctx = canvas.getContext('2d');
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resizeCanvas(){
+        canvas.width  = Math.round(window.innerWidth  * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      /* ---------- quill nib element ---------- */
+      var pen = document.createElement('div');
+      pen.className = 'cursor-pen';
+      pen.innerHTML =
+        '<svg viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M4 12 16 8.5C24 6.5 30 6.5 36 4 31 9 31 15 36 20 30 17.5 24 17.5 16 15.5Z" fill="currentColor" fill-opacity=".16"/>' +
+          '<path d="M4 12H20"/>' +
+          '<path d="M24 8 30 5.5M26 10 33 8M26 14 33 16M24 16 30 18.5" stroke-width=".9"/>' +
+        '</svg>';
+      document.body.appendChild(pen);
+
+      var mouseX = window.innerWidth / 2;
+      var mouseY = window.innerHeight / 2;
+      var currentAngle = 0, targetAngle = 0;
+      var currentScale = 1, targetScale = 1;
+      var hasMoved = false;
+
+      var points = [];          // recent {x,y,t,speed} used to draw the ink stroke
+      var TRAIL_LIFE = 420;     // ms a point stays visible
+      var MAX_WIDTH = 3.4;      // widest point of the ink line
+      var blots = [];           // occasional ink drips/splashes
+
+      function onMove(e){
+        var lastX = mouseX, lastY = mouseY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        var dx = mouseX - lastX, dy = mouseY - lastY;
+        var dist = Math.hypot(dx, dy);
+        if(dist > 1.2){
+          targetAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+        }
+        points.push({ x: mouseX, y: mouseY, t: performance.now(), speed: dist });
+
+        if(!hasMoved){
+          hasMoved = true;
+          document.documentElement.classList.add('cursor-active');
+        }
+        // a lingering pen tends to bleed a little ink
+        if(dist < 1.2 && Math.random() < 0.025){
+          blots.push({ x: mouseX, y: mouseY, born: performance.now(), r: 1.4 + Math.random() * 2 });
+        }
+      }
+
+      window.addEventListener('mousemove', onMove, { passive:true });
+      window.addEventListener('mouseleave', function(){
+        document.documentElement.classList.remove('cursor-active');
+      });
+      window.addEventListener('mouseenter', function(){
+        if(hasMoved) document.documentElement.classList.add('cursor-active');
+      });
+      window.addEventListener('mousedown', function(e){
+        targetScale = 0.82;
+        for(var i = 0; i < 6; i++){
+          var ang = Math.random() * Math.PI * 2;
+          var d = Math.random() * 6;
+          blots.push({
+            x: e.clientX + Math.cos(ang) * d,
+            y: e.clientY + Math.sin(ang) * d,
+            born: performance.now(),
+            r: 1 + Math.random() * 2.2
+          });
+        }
+      });
+      window.addEventListener('mouseup', function(){ targetScale = 1; });
+
+      function shortestAngleLerp(a, b, t){
+        var diff = ((b - a + 540) % 360) - 180;
+        return a + diff * t;
+      }
+
+      function draw(){
+        var now = performance.now();
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+        // drop points that have fully faded
+        while(points.length && now - points[0].t > TRAIL_LIFE){ points.shift(); }
+
+        // draw the tapering ink stroke through the remaining points
+        if(points.length > 1){
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          for(var i = 1; i < points.length; i++){
+            var p0 = points[i - 1], p1 = points[i];
+            var age = now - p1.t;
+            var lifeRatio = 1 - (age / TRAIL_LIFE);
+            if(lifeRatio <= 0) continue;
+            var speedFactor = Math.max(0.25, 1 - Math.min(p1.speed, 40) / 40);
+            ctx.globalAlpha = Math.max(0, lifeRatio) * 0.85;
+            ctx.strokeStyle = '#e8e2d0';
+            ctx.lineWidth = MAX_WIDTH * lifeRatio * (0.5 + speedFactor * 0.6);
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.lineTo(p1.x, p1.y);
+            ctx.stroke();
+          }
+        }
+
+        // ink blots / drips
+        for(var b = blots.length - 1; b >= 0; b--){
+          var blot = blots[b];
+          var age2 = now - blot.born;
+          var life = 900;
+          if(age2 > life){ blots.splice(b, 1); continue; }
+          var ratio = 1 - age2 / life;
+          ctx.globalAlpha = ratio * 0.7;
+          ctx.fillStyle = '#e8e2d0';
+          ctx.beginPath();
+          ctx.arc(blot.x, blot.y, blot.r * (1 + (1 - ratio) * 1.8), 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        // position + rotate the quill so the nib tip tracks the movement direction
+        currentAngle = shortestAngleLerp(currentAngle, targetAngle, 0.2);
+        currentScale += (targetScale - currentScale) * 0.25;
+        pen.style.transform =
+          'translate3d(' + mouseX + 'px,' + mouseY + 'px,0) rotate(' + currentAngle + 'deg) scale(' + currentScale + ')';
+
+        window.requestAnimationFrame(draw);
+      }
+      window.requestAnimationFrame(draw);
+
+      function bindHoverTargets(){
+        var hoverables = document.querySelectorAll(
+          'a, button, input, textarea, .wisdom-dot, .work-thumb'
+        );
+        hoverables.forEach(function(el){
+          el.addEventListener('mouseenter', function(){ targetScale = 1.5; });
+          el.addEventListener('mouseleave', function(){ targetScale = 1; });
+        });
+      }
+      bindHoverTargets();
     })();
   </script>
 
