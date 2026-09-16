@@ -409,99 +409,149 @@
       *{animation:none !important;}
     }
 
-    /* ---------- small-screen fallback ---------- */
+    /* ---------- mobile / small-screen layout ---------- */
     @media (max-width:760px){
       .hero-stage{
         align-items:stretch;
         justify-content:stretch;
+        width:100%;
         height:auto;
         min-height:calc(100svh - 64px);
         margin-top:64px;
+        overflow:visible;
       }
+
       .hero{
-        width:100vw;
+        width:100%;
         height:auto;
         min-height:calc(100svh - 64px);
         aspect-ratio:auto;
         display:flex;
         flex-direction:column;
-        padding:18px 6% 24px;
-        gap:6px;
+        padding:18px 6% 28px;
+        gap:0;
+        overflow:visible;
       }
-      .bg-word,.orbit,.spark{ display:none; }
 
-      .title-wrap{ position:static; order:2; margin-top:4px; }
-      .title{ font-size:clamp(34px,13vw,64px); -webkit-text-stroke:1.1px var(--ink); }
-      .subtitle{ letter-spacing:.32em; font-size:11px; margin-top:6px; }
+      .bg-word,
+      .orbit,
+      .spark{
+        display:none;
+      }
 
+      /* ---------- title ---------- */
+      .title-wrap{
+        position:static;
+        order:2;
+        width:100%;
+        margin-top:4px;
+        flex:none;
+      }
+
+      .title{
+        font-size:clamp(34px,13vw,64px);
+        line-height:1;
+        -webkit-text-stroke:1.1px var(--ink);
+      }
+
+      .subtitle{
+        letter-spacing:.32em;
+        font-size:11px;
+        margin-top:6px;
+      }
+
+      /* ---------- intro ---------- */
       .intro{
         position:static;
         order:3;
         width:100%;
-        margin-top:6px;
+        margin-top:10px;
+        flex:none;
       }
-      .intro p{ font-size:11.5px; margin-bottom:0; }
-      .intro .duo{ display:none; }
 
-      /* Portrait: previously this forced .portrait-pos/.portrait/img to
-         height:100% of a flex-squeezed .figure-zone, then scaled the whole
-         thing up 1.2x and clipped anything outside the box with
-         overflow:hidden on .figure-zone. Whenever the text above took up
-         more room than expected, that squeeze-then-zoom-then-clip chain is
-         exactly what chopped off the head and feet in an unpredictable spot.
-         Instead: let .hero grow to fit its content (no more forcing
-         everything into exactly one screen), give .figure-zone a fixed
-         "flex:0 0 auto" so it isn't fighting for leftover space, and size the
-         image itself with object-fit:contain inside a max-height cap so the
-         full portrait is always visible and centered, regardless of how much
-         vertical space the copy above takes. */
+      .intro p{
+        font-size:11.5px;
+        line-height:1.55;
+        margin:0 0 10px;
+      }
+
+      .intro .duo{
+        display:none;
+      }
+
+      .cta-btn{
+        padding:11px 20px;
+        font-size:11px;
+      }
+
+      /* ---------- portrait: never crop on mobile ---------- */
       .figure-zone{
         position:relative;
         order:4;
-        flex:0 0 auto;
         width:100%;
+        height:auto;
+        flex:0 0 auto;
+        flex-shrink:0;
         display:flex;
         align-items:flex-end;
         justify-content:center;
+        margin-top:12px;
         overflow:visible;
-        margin-top:10px;
       }
+
       .portrait-pos{
         position:relative;
         left:auto;
-        bottom:auto;
+        right:auto;
         top:auto;
+        bottom:auto;
         width:auto;
         height:auto;
-        max-height:56vh;
+        max-width:92%;
+        max-height:none;
         margin:0 auto;
+        transform:none;
       }
+
       .portrait{
+        position:relative;
         width:auto;
         height:auto;
-        max-height:56vh;
+        max-width:100%;
+        max-height:none;
         margin:0 auto;
-        display:block;
+        display:flex;
+        justify-content:center;
+        transform:none;
       }
+
       .portrait img{
         display:block;
         width:auto;
         height:auto;
-        max-height:56vh;
         max-width:100%;
+        max-height:clamp(300px, calc(100svh - 330px), 440px);
         object-fit:contain;
+        object-position:center bottom;
         margin:0 auto;
       }
 
+      /* ---------- description ---------- */
       .quote{
         position:static;
         order:5;
         width:100%;
         text-align:left;
-        padding-bottom:14px;
+        padding-bottom:8px;
         margin-top:14px;
+        flex:none;
       }
-      .quote p{ font-size:11px; }
+
+      .quote p{
+        font-size:11px;
+        line-height:1.6;
+        margin:0;
+      }
     }
 
     /* =========================================================
