@@ -409,16 +409,23 @@
       *{animation:none !important;}
     }
 
-    /* ---------- small-screen fallback: single-screen, no scroll ---------- */
+    /* ---------- small-screen fallback ---------- */
     @media (max-width:760px){
-      .hero-stage{ align-items:stretch; justify-content:stretch; height:calc(100svh - var(--header-h)); }
+      .hero-stage{
+        align-items:stretch;
+        justify-content:stretch;
+        height:auto;
+        min-height:calc(100svh - 64px);
+        margin-top:64px;
+      }
       .hero{
         width:100vw;
-        height:100%;
+        height:auto;
+        min-height:calc(100svh - 64px);
         aspect-ratio:auto;
         display:flex;
         flex-direction:column;
-        padding:18px 6% 0;
+        padding:18px 6% 24px;
         gap:6px;
       }
       .bg-word,.orbit,.spark{ display:none; }
@@ -436,21 +443,28 @@
       .intro p{ font-size:11.5px; margin-bottom:0; }
       .intro .duo{ display:none; }
 
-      /* Portrait centering: use flexbox instead of the absolute+translateX(-50%)
-         trick — that trick depended on .portrait keeping width:100%, but on
-         mobile the parent (.portrait-pos) switches to width:auto, which made
-         the width math ambiguous and threw the image off-center. Flex centers
-         it reliably regardless of the image's intrinsic size. */
+      /* Portrait: previously this forced .portrait-pos/.portrait/img to
+         height:100% of a flex-squeezed .figure-zone, then scaled the whole
+         thing up 1.2x and clipped anything outside the box with
+         overflow:hidden on .figure-zone. Whenever the text above took up
+         more room than expected, that squeeze-then-zoom-then-clip chain is
+         exactly what chopped off the head and feet in an unpredictable spot.
+         Instead: let .hero grow to fit its content (no more forcing
+         everything into exactly one screen), give .figure-zone a fixed
+         "flex:0 0 auto" so it isn't fighting for leftover space, and size the
+         image itself with object-fit:contain inside a max-height cap so the
+         full portrait is always visible and centered, regardless of how much
+         vertical space the copy above takes. */
       .figure-zone{
         position:relative;
         order:4;
-        flex:1 1 auto;
-        min-height:0;
+        flex:0 0 auto;
         width:100%;
         display:flex;
         align-items:flex-end;
         justify-content:center;
-        overflow:hidden;
+        overflow:visible;
+        margin-top:10px;
       }
       .portrait-pos{
         position:relative;
@@ -458,22 +472,24 @@
         bottom:auto;
         top:auto;
         width:auto;
-        height:100%;
+        height:auto;
+        max-height:56vh;
         margin:0 auto;
-        transform:scale(1.2);
-        transform-origin:50% 100%;
       }
       .portrait{
         width:auto;
-        height:100%;
+        height:auto;
+        max-height:56vh;
         margin:0 auto;
         display:block;
       }
       .portrait img{
         display:block;
         width:auto;
-        height:100%;
-        max-width:none;
+        height:auto;
+        max-height:56vh;
+        max-width:100%;
+        object-fit:contain;
         margin:0 auto;
       }
 
@@ -483,6 +499,7 @@
         width:100%;
         text-align:left;
         padding-bottom:14px;
+        margin-top:14px;
       }
       .quote p{ font-size:11px; }
     }
