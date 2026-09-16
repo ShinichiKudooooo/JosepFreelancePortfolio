@@ -495,7 +495,9 @@
         display:flex;
         align-items:flex-end;
         justify-content:center;
-        margin-top:12px;
+
+        /* Pull the portrait closer to the CTA and let it dominate the screen */
+        margin-top:6px;
         overflow:visible;
       }
 
@@ -505,10 +507,14 @@
         right:auto;
         top:auto;
         bottom:auto;
+
         width:auto;
         height:auto;
-        max-width:92%;
+
+        /* Use almost the full mobile width */
+        max-width:98%;
         max-height:none;
+
         margin:0 auto;
         transform:none;
       }
@@ -529,11 +535,30 @@
         display:block;
         width:auto;
         height:auto;
+
+        /* Larger portrait: adapts to phone height while leaving room
+           for the title, intro and description below */
         max-width:100%;
-        max-height:clamp(300px, calc(100svh - 330px), 440px);
+        max-height:clamp(
+          380px,
+          calc(100svh - 250px),
+          560px
+        );
+
         object-fit:contain;
         object-position:center bottom;
         margin:0 auto;
+      }
+
+      /* On very short phones, keep the hero from becoming excessively tall */
+      @media (max-height:700px){
+        .portrait img{
+          max-height:clamp(
+            330px,
+            calc(100svh - 230px),
+            470px
+          );
+        }
       }
 
       /* ---------- description ---------- */
