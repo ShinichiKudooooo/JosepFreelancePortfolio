@@ -3,7 +3,7 @@
   <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ara Coeli — Iosif</title>
+  <title>Iosif — GoHighLevel Systems, Automation & Funnels</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;300;400&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
@@ -1378,7 +1378,46 @@
     }
   </style>
 
-  </head>
+  
+  <style>
+    .contact-client-note{
+      position:relative;
+      z-index:2;
+      width:min(820px,88%);
+      margin:0 auto 46px;
+      text-align:center;
+    }
+    .contact-client-note p{
+      margin:0 0 10px;
+      font-family:'Cinzel',serif;
+      font-weight:400;
+      font-size:clamp(25px,3.2vw,44px);
+      line-height:1.15;
+      color:#e8e2d0;
+    }
+    .contact-client-note span{
+      display:block;
+      max-width:650px;
+      margin:0 auto;
+      color:#a8a293;
+      font-family:'EB Garamond',serif;
+      font-size:20px;
+      line-height:1.5;
+    }
+    @media(max-width:640px){
+      .contact-client-note{width:100%;margin-bottom:34px;}
+      .contact-client-note span{font-size:18px;}
+    }
+  </style>
+
+
+  <style>
+    @media (max-width: 760px){
+      body.menu-open{overflow:hidden;}
+    }
+  </style>
+
+</head>
   <body>
   <script>document.documentElement.classList.add('is-loading','custom-cursor');</script>
 
@@ -1395,10 +1434,10 @@
       <a class="site-logo" href="#top">Iosif</a>
 
       <nav class="site-nav" aria-label="Primary">
+        <a href="#systems">Systems</a>
         <a href="#experience">Experience</a>
-        <a href="#TechStack">TechStack</a>
         <a href="#projects">Projects</a>
-        <a href="#wisdom">Wisdom</a>
+        <a href="#process">Process</a>
         <a href="#contact">Contact</a>
       </nav>
 
@@ -1429,12 +1468,12 @@
     </div>
 
     <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="#systems">Systems</a>
       <a href="#experience">Experience</a>
-      <a href="#TechStack">TechStack</a>
       <a href="#projects">Projects</a>
-      <a href="#wisdom">Wisdom</a>
+      <a href="#process">Process</a>
       <a href="#contact">Contact</a>
-      <a class="mobile-mail" href="mailto:hello@aracoeli.com">Email Iosif</a>
+      <a class="mobile-mail" href="mailto:josepracelis.work@gmail.com">Email Iosif</a>
     </nav>
   </header>
 
@@ -1452,7 +1491,7 @@
     </div>
 
     <div class="intro">
-      <p>Ready to scale your business infrastructure? Let's audit your current setup—no pressure, just strategy.</p>
+      <p>I build GoHighLevel systems that capture, qualify, nurture, and move leads toward booked appointments — from CRM architecture and workflows to funnels, AI, and custom code.</p>
       <a class="cta-btn" href="https://josep.myfreelanceportfolio.me/book-a-meeting-with-me">
         <span>Book a Call</span>
         <svg viewBox="0 0 20 12" fill="none"><path d="M1 6h17M12 1l6 5-6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1464,7 +1503,7 @@
       <div class="orbit orbit-b"></div>
       <div class="portrait-pos">
         <div class="portrait">
-          <img src="https://assets.cdn.filesafe.space/qP7UG9fMzzIXNIWd6w0q/media/6aa40784cbbb25381187664e.png" alt="Portrait">
+          <img src="https://assets.cdn.filesafe.space/qP7UG9fMzzIXNIWd6w0q/media/6aa40784cbbb25381187664e.png" alt="Iosif portrait" fetchpriority="high">
         </div>
       </div>
     </div>
@@ -1475,7 +1514,7 @@
     <div class="spark s4"><svg viewBox="0 0 40 40" fill="currentColor"><path d="M20 0 C21 12 22 18 40 20 C22 22 21 28 20 40 C19 28 18 22 0 20 C18 18 19 12 20 0Z"/></svg></div>
 
     <div class="quote">
-      <p>This is Ara Coeli — where premium design meets conversion architecture. High-performance GoHighLevel ecosystems by Iosif. </p>
+      <p>This is Ara Coeli — where premium design meets conversion architecture. GoHighLevel systems, automation, funnels, and custom builds by Iosif.</p>
     </div>
 
   </div>
@@ -1503,6 +1542,464 @@
       overscroll-behavior-x: none;
     }
   </style>
+
+
+  <!-- =========================================================
+       CLIENT-FOCUSED PORTFOLIO ENHANCEMENTS
+       ========================================================= -->
+  <style>
+    /* ---------- Systems / positioning ---------- */
+    .systems-section{
+      position:relative;
+      background:#0c0b09;
+      color:#e8e2d0;
+      padding:clamp(90px,10vw,150px) 5% clamp(100px,11vw,170px);
+      overflow:hidden;
+    }
+    .systems-section::before{
+      content:"SYSTEMS";
+      position:absolute;
+      top:1.5%;
+      left:50%;
+      width:max-content;
+      max-width:none;
+      transform:translateX(-50%);
+      text-align:center;
+      font-family:'Cinzel',serif;
+      /* Keep the original oversized editorial scale, but anchor it to the
+         exact center of the section so the wordmark never looks cropped. */
+      font-size:clamp(145px,20vw,330px);
+      line-height:1;
+      letter-spacing:.025em;
+      color:rgba(255,255,255,.025);
+      pointer-events:none;
+      white-space:nowrap;
+    }
+    .systems-inner{
+      width:min(1320px,100%);
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+    .section-kicker{
+      font-family:'Jost',sans-serif;
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      color:#ff5722;
+      margin-bottom:18px;
+    }
+    .systems-title{
+      max-width:900px;
+      margin:0;
+      font-family:'Cinzel',serif;
+      font-size:clamp(34px,5vw,70px);
+      line-height:1.02;
+      font-weight:400;
+      letter-spacing:.01em;
+    }
+    .systems-intro{
+      max-width:760px;
+      margin:24px 0 0;
+      color:#a8a293;
+      font-family:'EB Garamond',serif;
+      font-size:clamp(19px,2vw,25px);
+      line-height:1.55;
+    }
+    .systems-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:1px;
+      margin-top:70px;
+      border-top:1px solid rgba(255,255,255,.12);
+      border-left:1px solid rgba(255,255,255,.12);
+    }
+    .system-card{
+      min-height:230px;
+      padding:30px 28px;
+      border-right:1px solid rgba(255,255,255,.12);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      transition:background .3s ease, transform .3s ease;
+    }
+    .system-card:hover{
+      background:rgba(255,255,255,.035);
+      transform:translateY(-3px);
+    }
+    .system-number{
+      display:block;
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      color:#ff5722;
+      margin-bottom:45px;
+    }
+    .system-card h3{
+      margin:0 0 12px;
+      font-family:'Cinzel',serif;
+      font-weight:500;
+      font-size:20px;
+      line-height:1.2;
+    }
+    .system-card p{
+      margin:0;
+      color:#9f9b91;
+      font-size:13px;
+      line-height:1.7;
+      font-weight:300;
+    }
+
+    /* ---------- VSL / introduction video ---------- */
+    .vsl-section{
+      background:#f4f3f0;
+      color:#232220;
+      padding:clamp(90px,10vw,150px) 5%;
+    }
+    .vsl-inner{
+      width:min(1200px,100%);
+      margin:0 auto;
+    }
+    .vsl-head{
+      display:grid;
+      grid-template-columns:.8fr 1.5fr;
+      gap:60px;
+      align-items:end;
+      margin-bottom:48px;
+    }
+    .vsl-title{
+      margin:0;
+      font-family:'Cinzel',serif;
+      font-weight:400;
+      font-size:clamp(36px,5vw,68px);
+      line-height:1;
+    }
+    .vsl-copy{
+      max-width:620px;
+      margin:0;
+      color:#6f6c66;
+      font-family:'EB Garamond',serif;
+      font-size:22px;
+      line-height:1.45;
+    }
+    .vsl-frame{
+      position:relative;
+      width:100%;
+      aspect-ratio:16/9;
+      background:#0c0b09;
+      border:1px solid rgba(35,34,32,.2);
+      overflow:hidden;
+      box-shadow:0 24px 70px rgba(35,34,32,.12);
+    }
+    .vsl-frame iframe,
+    .vsl-frame video{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+    .vsl-placeholder{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:12px;
+      padding:30px;
+      text-align:center;
+      color:#e8e2d0;
+      background:
+        radial-gradient(circle at 50% 45%,rgba(255,87,34,.12),transparent 34%),
+        #0c0b09;
+    }
+    .vsl-placeholder strong{
+      font-family:'Cinzel',serif;
+      font-weight:400;
+      font-size:clamp(22px,3vw,38px);
+    }
+    .vsl-placeholder span{
+      max-width:560px;
+      color:#a8a293;
+      font-size:13px;
+      line-height:1.7;
+    }
+    .vsl-note{
+      margin:14px 0 0;
+      color:#8a867e;
+      font-size:11px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    /* ---------- Process ---------- */
+    .process-section{
+      position:relative;
+      background:#0c0b09;
+      color:#e8e2d0;
+      padding:clamp(90px,10vw,150px) 5%;
+      overflow:hidden;
+    }
+    .process-inner{
+      width:min(1200px,100%);
+      margin:0 auto;
+    }
+    .process-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:40px;
+      margin-bottom:65px;
+    }
+    .process-title{
+      margin:0;
+      font-family:'Cinzel',serif;
+      font-size:clamp(38px,5vw,72px);
+      line-height:1;
+      font-weight:400;
+    }
+    .process-sub{
+      max-width:470px;
+      margin:0;
+      color:#9f9b91;
+      font-family:'EB Garamond',serif;
+      font-size:20px;
+      line-height:1.5;
+    }
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      border-top:1px solid rgba(255,255,255,.13);
+      border-left:1px solid rgba(255,255,255,.13);
+    }
+    .process-step{
+      min-height:250px;
+      padding:28px 24px;
+      border-right:1px solid rgba(255,255,255,.13);
+      border-bottom:1px solid rgba(255,255,255,.13);
+    }
+    .process-step .step-no{
+      color:#ff5722;
+      font-family:'Cinzel',serif;
+      font-size:12px;
+    }
+    .process-step h3{
+      margin:65px 0 12px;
+      font-family:'Cinzel',serif;
+      font-weight:400;
+      font-size:21px;
+    }
+    .process-step p{
+      margin:0;
+      color:#9f9b91;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    /* ---------- Why work with me ---------- */
+    .why-section{
+      background:#f4f3f0;
+      color:#232220;
+      padding:clamp(90px,10vw,150px) 5%;
+    }
+    .why-inner{
+      width:min(1200px,100%);
+      margin:0 auto;
+    }
+    .why-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      align-items:start;
+    }
+    .why-title{
+      margin:0;
+      font-family:'Cinzel',serif;
+      font-size:clamp(40px,5vw,72px);
+      line-height:1;
+      font-weight:400;
+    }
+    .why-lead{
+      margin:25px 0 0;
+      max-width:540px;
+      font-family:'EB Garamond',serif;
+      font-size:23px;
+      line-height:1.5;
+      color:#5f5c56;
+    }
+
+    .why-list{
+      border-top:1px solid rgba(35,34,32,.22);
+    }
+    .why-item{
+      display:grid;
+      grid-template-columns:48px 1fr;
+      gap:20px;
+      padding:25px 0;
+      border-bottom:1px solid rgba(35,34,32,.22);
+    }
+    .why-item-no{
+      font-family:'Cinzel',serif;
+      color:#ff5722;
+      font-size:12px;
+    }
+    .why-item h3{
+      margin:0 0 8px;
+      font-family:'Cinzel',serif;
+      font-size:18px;
+      font-weight:500;
+    }
+    .why-item p{
+      margin:0;
+      color:#6f6c66;
+      font-size:13px;
+      line-height:1.7;
+    }
+
+
+    /* ---------- Editorial section CTA ---------- */
+    .editorial-cta{
+      padding:14px 3% 72px;
+      background:#f4f3f0;
+    }
+    .editorial-cta-inner{
+      max-width:1180px;
+      margin:0 auto;
+      padding-top:24px;
+      border-top:1px solid rgba(35,34,32,.24);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+    }
+    .editorial-cta-copy{
+      margin:0;
+      color:var(--ink);
+      font-family:'EB Garamond',serif;
+      font-size:28px;
+      line-height:1.15;
+    }
+    .editorial-cta-copy em{
+      color:var(--accent);
+      font-style:italic;
+    }
+    .editorial-cta-btn{
+      flex:none;
+      display:inline-flex;
+      align-items:center;
+      gap:24px;
+      min-width:157px;
+      justify-content:center;
+    }
+    @media (max-width:700px){
+      .editorial-cta{padding:10px 6% 55px;}
+      .editorial-cta-inner{align-items:flex-start; flex-direction:column; gap:24px; padding-top:22px;}
+      .editorial-cta-copy{font-size:24px; max-width:520px;}
+    }
+
+    /* ---------- Better client CTA ---------- */
+    .contact-section .contact-lead{
+      max-width:780px;
+    }
+
+    @media (max-width:1000px){
+      .systems-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .process-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .process-step:last-child{grid-column:1/-1;}
+      .why-grid{gap:50px;}
+      .vsl-head{grid-template-columns:1fr;gap:20px;}
+    }
+    @media (max-width:700px){
+      .systems-section::before{
+        top:3%;
+        font-size:clamp(105px,29vw,180px);
+      }
+      .systems-section,.vsl-section,.process-section,.why-section{
+        padding-left:6%;
+        padding-right:6%;
+      }
+      .systems-grid{grid-template-columns:1fr;margin-top:50px;}
+      .system-card{min-height:auto;padding:26px 22px;}
+      .system-number{margin-bottom:28px;}
+      .vsl-head{margin-bottom:32px;}
+      .vsl-copy{font-size:19px;}
+      .vsl-frame{aspect-ratio:16/10;}
+      .process-head{display:block;margin-bottom:45px;}
+      .process-sub{margin-top:20px;font-size:19px;}
+      .process-grid{grid-template-columns:1fr;}
+      .process-step:last-child{grid-column:auto;}
+      .process-step{min-height:auto;padding:25px 22px;}
+      .process-step h3{margin-top:35px;}
+      .why-grid{grid-template-columns:1fr;gap:50px;}
+      .why-lead{font-size:20px;}
+    }
+    @media (max-width:420px){
+      .systems-title,.vsl-title,.process-title,.why-title{font-size:clamp(32px,11vw,48px);}
+      .vsl-frame{aspect-ratio:4/3;}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .system-card{transition:none;}
+    }
+  </style>
+
+  <section class="systems-section" id="systems">
+    <div class="systems-inner">
+      <div class="section-kicker reveal">What I Build</div>
+      <h2 class="systems-title reveal">The infrastructure behind the front end.</h2>
+      <p class="systems-intro reveal">
+        I work across the parts of a GoHighLevel ecosystem that have to function together:
+        CRM structure, lead routing, follow-up, appointment automation, Conversational AI,
+        funnels, websites, and custom code.
+      </p>
+
+      <div class="systems-grid">
+        <article class="system-card reveal">
+          <span class="system-number">01</span>
+          <h3>CRM &amp; Lead Systems</h3>
+          <p>Pipeline architecture, opportunities, tags, custom fields, source tracking, lead capture, calendars, and organized client journeys.</p>
+        </article>
+        <article class="system-card reveal">
+          <span class="system-number">02</span>
+          <h3>Automation &amp; Follow-Up</h3>
+          <p>Branching workflows, qualification, SMS/email sequences, reminders, missed-call text back, re-engagement, and routing logic.</p>
+        </article>
+        <article class="system-card reveal">
+          <span class="system-number">03</span>
+          <h3>AI &amp; Conversations</h3>
+          <p>GoHighLevel Conversational AI connected to qualification, follow-up, appointment booking, and the surrounding automation.</p>
+        </article>
+        <article class="system-card reveal">
+          <span class="system-number">04</span>
+          <h3>Funnels &amp; Custom Builds</h3>
+          <p>Responsive GHL websites and funnels, Figma-to-GHL builds, custom HTML/CSS/JS, forms, booking pages, and conversion-focused sections.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VSL / INTRODUCTION VIDEO
+       Replace the placeholder with your VSL embed.
+       ========================================================== -->
+  <section class="vsl-section" id="introduction">
+    <div class="vsl-inner">
+      <div class="vsl-head">
+        <div>
+          <div class="section-kicker reveal">A Short Introduction</div>
+          <h2 class="vsl-title reveal">Meet Iosif.</h2>
+        </div>
+        <p class="vsl-copy reveal">
+          A short introduction to who I am, what I build inside GoHighLevel,
+          and how I approach automation, funnels, CRM systems, and problem-solving.
+        </p>
+      </div>
+
+      <div class="vsl-frame reveal">
+          <iframe
+            src="https://assets.cdn.filesafe.space/qP7UG9fMzzIXNIWd6w0q/media/6a7863a19a9c7792ea799e59.mp4"
+            title="Iosif — Introduction"
+            allow="fullscreen; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+  </section>
 
   <section class="chronicles" id="experience">
   <div class="chron-inner">
@@ -1681,6 +2178,130 @@
     </div>
 
   </div>
+  </section>
+
+
+  <!-- =========================================================
+       HOW I WORK
+  ========================================================== -->
+  <section class="process-section" id="process">
+    <div class="process-inner">
+      <div class="process-head">
+        <div>
+          <div class="section-kicker reveal">How I Work</div>
+          <h2 class="process-title reveal">Build with intent.</h2>
+        </div>
+        <p class="process-sub reveal">
+          The goal is not to add more automation. The goal is to build a system
+          that makes sense, can be tested, and can actually be maintained.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <article class="process-step reveal">
+          <span class="step-no">01</span>
+          <h3>Audit</h3>
+          <p>Understand the current CRM, funnel, workflow, lead journey, and the problems that need to be solved.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-no">02</span>
+          <h3>Architect</h3>
+          <p>Map triggers, conditions, branches, pipeline stages, communication, and edge cases before building.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-no">03</span>
+          <h3>Build</h3>
+          <p>Implement the GHL workflows, CRM structure, pages, AI, integrations, and custom code needed for the system.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-no">04</span>
+          <h3>Test</h3>
+          <p>Check logic, duplicate contacts, misfires, loops, incomplete data, notifications, and the actual lead journey.</p>
+        </article>
+        <article class="process-step reveal">
+          <span class="step-no">05</span>
+          <h3>Document</h3>
+          <p>Leave the system understandable with workflow diagrams, explanations, and clear handover notes when needed.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       WHY WORK WITH ME
+       No testimonials, ratings, fake statistics, or social proof.
+  ========================================================== -->
+  <section class="why-section" id="about">
+    <div class="why-inner">
+      <div class="why-grid">
+        <div>
+          <div class="section-kicker reveal">The Person Behind The System</div>
+          <h2 class="why-title reveal">More than clicking “Publish.”</h2>
+          <p class="why-lead reveal">
+            I enjoy solving the messy parts — the logic, the edge cases,
+            the CRM structure, the design limitations, and the details that
+            determine whether an automation actually works.
+          </p>
+
+        </div>
+
+        <div class="why-list">
+          <article class="why-item reveal">
+            <span class="why-item-no">01</span>
+            <div>
+              <h3>Hands-on GoHighLevel Specialist</h3>
+              <p>Experience across CRM management, workflows, funnels, Conversational AI, lead nurturing, appointment systems, and custom builds.</p>
+            </div>
+          </article>
+          <article class="why-item reveal">
+            <span class="why-item-no">02</span>
+            <div>
+              <h3>Former Real Estate Agent</h3>
+              <p>I understand the lead-to-appointment side of real estate from experience, which helps when building qualification, routing, and follow-up systems.</p>
+            </div>
+          </article>
+          <article class="why-item reveal">
+            <span class="why-item-no">03</span>
+            <div>
+              <h3>Technical + Creative</h3>
+              <p>I combine automation and CRM logic with custom HTML/CSS/JS, Figma-to-GHL builds, and a video-editing background that keeps visual details in focus.</p>
+            </div>
+          </article>
+          <article class="why-item reveal">
+            <span class="why-item-no">04</span>
+            <div>
+              <h3>Problem Solver</h3>
+              <p>When a workflow misfires, duplicates contacts, gets stuck in a branch, or behaves differently than expected, I like tracing the logic and finding the actual cause.</p>
+            </div>
+          </article>
+          <article class="why-item reveal">
+            <span class="why-item-no">05</span>
+            <div>
+              <h3>Comfortable Explaining Systems</h3>
+              <p>I also teach GoHighLevel, which means I regularly break complex workflows and processes down into something another person can understand and use.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+        SECTION CTA — keep the editorial booking CTA
+  ========================================================== -->
+  <section class="editorial-cta" aria-label="Book a call">
+    <div class="editorial-cta-inner">
+      <p class="editorial-cta-copy">
+        Have a system in mind? <em>Let’s build it properly.</em>
+      </p>
+      <a class="cta-btn editorial-cta-btn" href="https://josep.myfreelanceportfolio.me/book-a-meeting-with-me">
+        <span>Book a Call</span>
+        <svg viewBox="0 0 24 12" fill="none" aria-hidden="true">
+          <path d="M1 6h20M15 1l6 5-6 5" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </a>
+    </div>
   </section>
 
   <!-- =========================================================
@@ -2218,6 +2839,11 @@
 </style>
 
 <section class="contact-section" id="contact">
+  <div class="contact-client-note reveal">
+    <p><strong>Have a system that needs to be built, fixed, or cleaned up?</strong></p>
+    <span>Send the details, the current setup, or simply the problem you are trying to solve. I can start from there.</span>
+  </div>
+
 
   <div class="contact-dots" aria-hidden="true">
     <span class="dot d1"></span>
@@ -2579,6 +3205,7 @@
         hamburger.addEventListener('click', function(){
           var open = hamburger.classList.toggle('is-open');
           mobileNav.classList.toggle('is-open', open);
+          document.body.classList.toggle('menu-open', open);
           hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
 
@@ -2586,6 +3213,7 @@
           link.addEventListener('click', function(){
             hamburger.classList.remove('is-open');
             mobileNav.classList.remove('is-open');
+            document.body.classList.remove('menu-open');
             hamburger.setAttribute('aria-expanded', 'false');
           });
         });
